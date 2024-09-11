@@ -1,21 +1,20 @@
 package com.pluralsight.conference_demo.models;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "sessions")
+@Entity
+@Table(name = "sessions")
+@Access(AccessType.FIELD)
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Session {
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long session_id;
-    @Column
     private String session_name;
-    @Column
     private String session_description;
-    @Column
     private Integer session_length;
     @ManyToMany
     @JoinTable(

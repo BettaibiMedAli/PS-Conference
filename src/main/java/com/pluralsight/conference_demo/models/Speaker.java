@@ -1,28 +1,25 @@
 package com.pluralsight.conference_demo.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "speakers")
+@Entity
+@Table(name = "speakers")
+@Access(AccessType.FIELD)
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Speaker {
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long speaker_id;
-    @Column
     private String first_name;
-    @Column
     private String last_name;
-    @Column
     private String title;
-    @Column
     private String company;
-    @Column
     private String speaker_bio;
     @ManyToMany(mappedBy = "speakers")
+    @JsonIgnore
     private List<Session> sessions;
     @Lob
     //@Type(type = "org.hibernate.type.BinaryType")
